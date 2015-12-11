@@ -37,11 +37,11 @@ type "simple_type" {
 type "mode" {
     scalar "mode" {
         enum [
-            "property"
-            "list_property"
-            "indexed_property"
+            "property" ;; parent.thistag = thisvalue
+            "list_property" ;; parent.thistag.append(thisvalue)
+            "indexed_property" ;; parent.thistag[thisname] = thisvalue
             ;; "append"
-            "tagged_append"
+            "tagged_append" ;; parent.contents.append(pair(thistag,thisvalue))
         ]
         mode "property"
     }
