@@ -1,0 +1,52 @@
+type "type" {
+    section "type" {
+        mode "indexed_property"
+        include "element"
+    }
+}
+
+type "element" {
+    section "scalar" {
+        mode "tagged_append"
+        include "simple_type"
+        include "mode"
+        include "enum"
+    }
+    section "collection" {
+        mode "tagged_append"
+        include "simple_type"
+        include "mode"
+    }
+    section "section" {
+        mode "tagged_append"
+        include "mode"
+        include "element"
+    }
+    section "block" {
+        mode "tagged_append"
+        include "mode"
+        include "element"
+    }
+    scalar "include" { type "string" mode "tagged_append" }
+}
+
+type "simple_type" {
+    scalar "type" { type "string" mode "property" }
+}
+
+type "mode" {
+    scalar "mode" {
+        enum [
+            "property"
+            "list_property"
+            "indexed_property"
+            ;; "append"
+            "tagged_append"
+        ]
+        mode "property"
+    }
+}
+
+type "enum" {
+    collection "enum" { type "string" mode "property" }
+}

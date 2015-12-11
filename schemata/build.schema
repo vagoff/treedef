@@ -1,0 +1,39 @@
+type "build" {
+    section "build" {
+        mode "indexed_property"
+        scalar "description" { type "string" mode "property" }
+        collection "depends" { type "string" mode "property" }
+        section "entrypoint" {
+            mode "list_property"
+            scalar "modpath" { type "string" mode "property" }
+            scalar "refname" { type "string" mode "property" }
+            scalar "deftype" { type "string" mode "property" }
+        }
+        section "target" {
+            mode "list_property"
+            scalar "modpath" { type "string" mode "property" }
+            scalar "refname" { type "string" mode "property" }
+            scalar "deftype" { type "string" mode "property" }
+        }
+        block "supply" {
+            mode "list_property"
+            scalar "prefix" { type "string" mode "list_property" } }
+            scalar "namespace" { type "string" mode "list_property" } }
+        }
+        section "namespace" {
+            mode "indexed_property"
+            scalar "load" { type "string" mode "tagged_append" }
+            scalar "include" { type "string" mode "tagged_append" }
+            scalar "import" { type "string" mode "tagged_append" }
+        }
+    }
+    section "module" {
+        mode "indexed_property"
+        scalar "constant" { type "string" mode "tagged_append" }
+        scalar "procedure" { type "string" mode "tagged_append" }
+        scalar "exception" { type "string" mode "tagged_append" }
+        scalar "record" { type "string" mode "tagged_append" }
+        scalar "type" { type "string" mode "tagged_append" }
+        collection "implement" { type "string" mode "indexed_property" }
+    }
+}

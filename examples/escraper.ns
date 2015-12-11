@@ -1,0 +1,58 @@
+module "orchestration.x" {
+    procedure "main"
+    procedure "_copy_images_" {as "copy_images"}
+    procedure "scrape_site"
+    procedure "process_scrapped_data"
+    procedure "writeout_json_files"
+    procedure "copy_images"
+    procedure "call_parse_xls"
+    procedure "push_products"
+    procedure "call_sync_images"
+}
+
+module "markers.x" {
+    procedure "emit_markers"
+}
+
+module "scrapping_helpers.x" {
+    protocol "needed?" ["needed?"]
+    implement "needed?" ["Knob" "TextLabel" "FormField"]
+    procedure "compute_invariants"
+    procedure "eliminate_invariants"
+    procedure "show_invariants"
+}
+
+module "csv_generator.x" {
+    protocol "generate_csv*" ["generate_csv*"]
+    implement "generate_csv*" ["Knob" "TextLabel" "FormField"]
+    procedure "escape_csv"
+    procedure "write_csv"
+    procedure "emit_csv_cell"
+    procedure "emit_csv_row"
+    procedure "emit_csv"
+}
+
+module "toys.x" {
+    constant "+keywords+"
+    constant "+headers+"
+    procedure "parse_fields"
+    procedure "check_fields"
+    procedure "chop_off"
+    procedure "restore_url"
+}
+
+module "download_images.py" { procedure "download_images" }
+module "upload_images.py" { procedure "upload_images" }
+module "sync_images.py" { procedure "sync_images" }
+module "call_push.py" { procedure "call_push" }
+module "parse_xls.py" { procedure "parse_xls" }
+
+;; module "commands.x" { procedure "find_suspicious_files" }
+
+module "utils.x" {
+    procedure "_parse_json_file"
+    procedure "extract_texts"
+    procedure "print_server_messages"
+    procedure "print_server_response"
+    coreform "_get"
+}

@@ -1,0 +1,20 @@
+build "adworker" {
+
+    depends ["xinx" "webgrunt" "uncaptcha"]
+    targets { modpath "adworker/adworker.x" defname "main" deftype "Procedure" }
+    entrypoint { modpath "adworker/adworker.x" defname "main" deftype "Procedure" }
+
+    supply { prefix "adworker/" namespace "webgrunt.applications.adworker.internals" }
+
+    namespace "webgrunt.applications.adworker.internals" {
+        load "adworker/adworker.ns"
+        include "lib.transport.zmq"
+        include "webgrunt.engine.browser.client.api"
+        include "webgrunt.engine.api"
+        include "webgrunt.engine.utils"
+        ;;include "webgrunt.engine.wgs.interpreter.api"
+        include "webgrunt.services.uncaptcha.client.api"
+        include "xinx"
+    }
+
+}
