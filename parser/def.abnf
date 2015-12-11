@@ -1,0 +1,13 @@
+file = *definition
+
+definition = command [argument] *option [input]
+option = keyword argument
+argument = elementary_value
+input = block / elementary_list
+block = "{" *definition "}"
+elementary_list = "[" *elementary_value "]"
+elementary_value = FLOAT / INT / STRING / bool
+
+bool = "true" / "false"
+command = IDENT
+keyword = KEYWORD

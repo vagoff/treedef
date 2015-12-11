@@ -1,0 +1,31 @@
+    definition =
+        IDENT@id1
+        (
+            IDENT@id2 -> continuation{some(str(id1)),sym(id2)}
+            _ -> continuation{none,sym(id1)}
+        )
+
+    continuation{prefix,tag} =
+        '{' -> block@@block [tuple(mktt(prefix,tag,none,some(block)))]
+        '[' -> list@@list [tuple(mktt(prefix,tag,none,some(list)))]
+        _ -> scalar@val
+            (
+                '{' -> block@@block [tuple(mktt(prefix,tag,some(val),some(block)))]
+                '[' -> list@@list [tuple(mktt(prefix,tag,some(val),some(list)))]
+                _ -> [tuple(mktt(prefix,tag,some(val),none))]
+            )
+
+    block =
+        '}' -> []
+        EOF -> "unclosed '}'"
+        _ -> definition block
+
+    list =
+        ']' -> []
+        EOF -> "error: unterminated list"
+        _ -> scalar list
+
+    scalar =
+        DOUBLE_STRING@s -> [str(s)]
+        INT@i -> [int(i)]
+        FLOAT@f -> [float(f)]

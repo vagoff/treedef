@@ -1,0 +1,13 @@
+file = definition*
+
+definition
+    = prefix? tag value? block
+    | prefix? tag value? list
+    | prefix? tag value
+block = "{" definition* "}"
+list = "[" value* "]"
+value = FLOAT | INT | STRING | bool
+
+bool = "true" | "false"
+tag = IDENT
+prefix = IDENT

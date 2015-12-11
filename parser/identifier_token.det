@@ -1,0 +1,35 @@
+token +=
+
+    't'@a -> (
+    'r'@b -> (
+    'u'@c -> (
+    'e'@d -> (
+        ('0'..'9'|'A'..'Z'|'_'|'a'..'z')@e -> ident_rest{mktt(a,b,c,d,e)}
+        _ -> [true]
+    ) _ -> [a] [b] [c] ident_rest{mktt(a,b,c)}
+    ) _ -> [a] [b] ident_rest{mktt(a,b)}
+    ) _ -> [a] ident_rest{mktt(a)}
+    )
+
+    'f'@a -> (
+    'a'@b -> (
+    'l'@c -> (
+    's'@d -> (
+    'e'@e -> (
+        ('0'..'9'|'A'..'Z'|'_'|'a'..'z')@f -> ident_rest{mktt(a,b,c,d,e,f)}
+        _ -> [false]
+    ) _ -> ident_rest{mktt(a,b,c,d)}
+    ) _ -> ident_rest{mktt(a,b,c)}
+    ) _ -> ident_rest{mktt(a,b)}
+    ) _ -> ident_rest{mktt(a)}
+    )
+
+    ('A'..'Z'|'_'|'a'..'z')@c -> ident_rest{mktt(c)}
+
+ident_rest{tt} =
+    ident_rest_loop@@cc
+    [IDENT(tt2t(concat(tt,cc)))]
+
+ident_rest_loop =
+    ('0'..'9'|'A'..'Z'|'_'|'a'..'z')@t -> [t] ident_rest_loop
+    _ -> []
