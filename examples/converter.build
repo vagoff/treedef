@@ -1,0 +1,20 @@
+build "system20.converter" {
+
+    depends ["xinx"]
+    target { modpath "compiler/converter/entrypoint.x" defname "main" deftype "Procedure" }
+    entrypoint { modpath "compiler/converter/entrypoint.x" defname "main" deftype "Procedure" }
+
+    supply { prefix "compiler/" namespace "system20.converter.internals" }
+
+    namespace "system20.converter.internals" {
+        load "compiler/dsl/dsl.ns",
+        load "compiler/examples/maryjane/maryjane.ns",
+        load "compiler/ir/ir.ns",
+        load "compiler/ir/typespec.ns",
+        load "compiler/passes/passes.ns",
+        load "compiler/converter/converter.ns",
+        include "lib.compilers.unique_names",
+        import "xinx"
+    }
+
+}
