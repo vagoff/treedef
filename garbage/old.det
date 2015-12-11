@@ -1,0 +1,29 @@
+maybe_contents =
+    '{' -> block@@block [some(block)]
+    '[' -> elementary_list@@list [some(list)]
+    _ -> [none]
+
+block =
+    '}' -> []
+    EOF -> "unclosed '}'"
+    _ -> definition block
+
+maybe_argument = maybe_elementary_value
+
+argument = elementary_value
+
+elementary_list =
+    ']' -> []
+    EOF -> "error: unterminated elementary list"
+    _ -> elementary_value elementary_list
+
+maybe_elementary_value =
+    DOUBLE_STRING@s -> [some(str(s))]
+    INT@i -> [some(int(i))]
+    FLOAT@f -> [some(float(f))]
+    _ -> [none]
+
+elementary_value =
+    DOUBLE_STRING@s -> [str(s)]
+    INT@i -> [int(i)]
+    FLOAT@f -> [float(f)]

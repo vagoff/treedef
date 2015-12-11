@@ -1,0 +1,7 @@
+token +=
+    IDENT@ident ->
+        (
+            ':' -> [KEYWORD(ident)]
+            _ -> [ident]
+        )
+    _@t -> [t]
