@@ -1,13 +1,8 @@
 file = definition*
 
-definition
-    = prefix? tag value? block
-    | prefix? tag value? list
-    | prefix? tag value
-block = "{" definition* "}"
-list = "[" value* "]"
-value = FLOAT | INT | STRING | bool
-
-bool = "true" | "false"
-tag = IDENT
-prefix = IDENT
+definition = block | section | entry
+block = name contents
+section = name STRING contents
+contents = "{" entry* "}" | "[" value* "]"
+entry = name value | name block
+value = ( INT | FLOAT | STRING | BOOL )
