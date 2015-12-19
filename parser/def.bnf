@@ -1,8 +1,10 @@
-file = definition*
+file = entry*
 
-definition = block | section | entry
-block = name contents
-section = name STRING contents
-contents = "{" entry* "}" | "[" value* "]"
-entry = name value | name block
-value = ( INT | FLOAT | STRING | BOOL )
+entry = complex | simple
+complex = ( property_name class_name contents | class_name instance_name? ) ( "{" entry* "}" | "[" property_value* "]" )
+simple = property_name property_value
+
+class_name = IDENT
+property_name = IDENT
+instance_name = STRING
+property_value = INT | FLOAT | STRING | BOOL
