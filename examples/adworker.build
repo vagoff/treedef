@@ -1,8 +1,11 @@
 build "adworker" {
 
     depends ["xinx" "webgrunt" "uncaptcha"]
-    targets { modpath "adworker/adworker.x" defname "main" deftype "Procedure" }
+    target { modpath "adworker/adworker.x" defname "main" deftype "Procedure" }
     entrypoint { modpath "adworker/adworker.x" defname "main" deftype "Procedure" }
+
+    targets { module "adworker/adworker.x" { procedure "main" } }
+    entrypoint { module "adworker/adworker.x" { procedure "main" } }
 
     supply { prefix "adworker/" namespace "webgrunt.applications.adworker.internals" }
 
