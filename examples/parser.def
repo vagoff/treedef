@@ -1,6 +1,9 @@
-options {}
+parser "def" {
 
-pipeline "parse_def_file" {
+    options {}
+
+    entrypoint "parse_def_file"
+
     stage "det/examples/def/lexer.stage" {
         filter "common/line_comments_token.det"
         filter "common/numeric_token.det"
@@ -22,4 +25,5 @@ pipeline "parse_def_file" {
     stage "det/examples/def/syntax.stage" {
         parser "examples/def/def.det"
     }
+
 }

@@ -1,9 +1,7 @@
 options {}
 
 pipeline "parse_wgl_file" {
-    stage "engine/wgl/parser/indentation.stage" {
-        procedure "insert_indentation_tokens_stage"
-    }
+    procedural_stage "insert_indentation_tokens_stage"
     stage "engine/wgl/parser/classify.stage" {
         filter "engine/wgl/parser/classify.det"
     }
