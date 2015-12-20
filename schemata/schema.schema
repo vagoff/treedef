@@ -38,10 +38,12 @@ type "mode" {
     scalar "mode" {
         enum [
             "property" ;; parent.thistag = thisvalue
+            "mandatory_property" ;; can't be missed
             "list_property" ;; parent.thistag.append(thisvalue)
             "indexed_property" ;; parent.thistag[thisname] = thisvalue
             ;; "append"
             "tagged_append" ;; parent.contents.append(pair(thistag,thisvalue))
+            "setup_context" ;; call open_xxx [name]
         ]
         mode "property"
     }
