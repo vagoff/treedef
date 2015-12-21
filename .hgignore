@@ -1,0 +1,9 @@
+[.]pyc$
+__pycache__/
+^cache/
+^tests/
+^vendor/
+^vendor_/
+^_vendor/
+^assets$
+^output$
