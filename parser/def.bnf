@@ -1,8 +1,10 @@
 file = entry*
 
-entry = complex | simple
-complex = ( property_name class_name | class_name instance_name? ) ( "{" entry* "}" | "[" property_value* "]" )
-simple = property_name property_value
+entry = property | section | block
+section = class_name instance_name contents
+block = class_name contents
+property = property_name ( property_value | block )
+contents = "{" entry* "}" | "[" property_value* "]"
 
 class_name = IDENT
 property_name = IDENT
