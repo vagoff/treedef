@@ -1,31 +1,39 @@
-    definition =
-        IDENT@id1
-        (
-            IDENT@id2 -> continuation{some(str(id1)),sym(id2)}
-            _ -> continuation{none,sym(id1)}
-        )
+;; [!] [sym(id1)]@tag
 
-    continuation{prefix,tag} =
-        '{' -> block@@block [tuple(mktt(prefix,tag,none,some(block)))]
-        '[' -> list@@list [tuple(mktt(prefix,tag,none,some(list)))]
-        _ -> scalar@val
+entry =
+    IDENT@id1
+    (
+        IDENT@id2 ->
             (
-                '{' -> block@@block [tuple(mktt(prefix,tag,some(val),some(block)))]
-                '[' -> list@@list [tuple(mktt(prefix,tag,some(val),some(list)))]
-                _ -> [tuple(mktt(prefix,tag,some(val),none))]
+                '{' -> block@@bb [LeafBlock(sym(id1),sym(id2),bb)]
+                '[' -> collection@@cc [LeafCollection(sym(id1),sym(id2),cc)]
             )
+        '{' -> block@@bb [Block(sym(id1),bb)]
+        '[' -> collection@@cc [Collection(sym(id1),cc)]
+        DOUBLE_STRING@s ->
+            (
+                '{' -> block@@bb [Section(sym(id1),str(s),bb)]
+                _ -> [Leaf(sym(id1),str(s))]
+            )
+        INT@i -> [Leaf(sym(id1),int(i))]
+        FLOAT@f -> [Leaf(sym(id1),float(f))]
+        TRUE@f -> [Leaf(sym(id1),true)]
+        FALSE@f -> [Leaf(sym(id1),false)]
+    )
 
-    block =
-        '}' -> []
-        EOF -> "unclosed '}'"
-        _ -> definition block
+block =
+    '}' -> []
+    EOF -> "unclosed brace"
+    _ -> entry block
 
-    list =
-        ']' -> []
-        EOF -> "error: unterminated list"
-        _ -> scalar list
+collection =
+    ']' -> []
+    EOF -> "error: unterminated collection"
+    _ -> collection_item collection
 
-    scalar =
-        DOUBLE_STRING@s -> [str(s)]
-        INT@i -> [int(i)]
-        FLOAT@f -> [float(f)]
+collection_item =
+    DOUBLE_STRING@s -> [str(s)]
+    INT@i -> [int(i)]
+    FLOAT@f -> [float(f)]
+    TRUE@f -> [true]
+    FALSE@f -> [false]
