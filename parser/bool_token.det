@@ -5,7 +5,7 @@ token +=
     'u'@c -> (
     'e'@d -> (
         ('0'..'9'|'A'..'Z'|'_'|'a'..'z')@e -> ident_rest{mktt(a,b,c,d,e)}
-        _ -> [true]
+        _ -> [TRUE]
     ) _ -> [a] [b] [c] ident_rest{mktt(a,b,c)}
     ) _ -> [a] [b] ident_rest{mktt(a,b)}
     ) _ -> [a] ident_rest{mktt(a)}
@@ -17,7 +17,7 @@ token +=
     's'@d -> (
     'e'@e -> (
         ('0'..'9'|'A'..'Z'|'_'|'a'..'z')@f -> ident_rest{mktt(a,b,c,d,e,f)}
-        _ -> [false]
+        _ -> [FALSE]
     ) _ -> ident_rest{mktt(a,b,c,d)}
     ) _ -> ident_rest{mktt(a,b,c)}
     ) _ -> ident_rest{mktt(a,b)}
