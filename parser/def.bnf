@@ -1,12 +1,12 @@
 file = entry*
 
-entry = property | section | block
-section = class_name instance_name contents
-block = class_name contents
-property = property_name ( property_value | block )
-contents = "{" entry* "}" | "[" property_value* "]"
+entry = section | block | leaf
+section = tag section_id contents
+block = tag contents
+leaf = leaf_name ( scalar | block )
+contents = "{" entry* "}" | "[" scalar* "]"
 
-class_name = IDENT
-property_name = IDENT
-instance_name = STRING
-property_value = INT | FLOAT | STRING | BOOL
+tag_name = IDENT
+section_id = STRING
+leaf_name = IDENT
+scalar = INT | FLOAT | STRING | BOOL
